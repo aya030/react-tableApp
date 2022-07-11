@@ -56,13 +56,15 @@ function AppTable() {
           </TableHead>
           <TableBody>
             {rows.map((row) => (
-              <TableRow key={row.time} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+              <TableRow
+                key={row.startDate}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                 <TableCell component="th" scope="row">
                   {row.startDate}〜{row.endDate}
                 </TableCell>
                 {Object.values(row.active).map((active) => (
                   <TableCell
-                    key={row.time}
+                    key={row.active}
                     style={{ fontSize: '30px', color: '#1976d2' }}
                     align="center">
                     {active ? '●' : '-'}
