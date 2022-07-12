@@ -8,13 +8,35 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import './App.css';
 
-function createData(time, wed1, wed2, wed3, wed4, wed5, wed6, wed7) {
-  return { time, wed1, wed2, wed3, wed4, wed5, wed6, wed7 };
-}
-
 const rows = [
-  createData('8:00〜12:00', '●', '●', '●', '●', '●', '●', '-'),
-  createData('14:00〜17:00', '●', '●', '●', '-', '●', '-', '-'),
+  {
+    id: 1,
+    startDate: '8:00',
+    endDate: '12:00',
+    actives: {
+      mon: true,
+      tue: true,
+      wed: true,
+      thu: true,
+      fri: true,
+      sat: true,
+      sun: false,
+    },
+  },
+  {
+    id: 2,
+    startDate: '14:00',
+    endDate: '18:00',
+    actives: {
+      mon: true,
+      tue: true,
+      wed: true,
+      thu: false,
+      fri: true,
+      sat: false,
+      sun: false,
+    },
+  },
 ];
 
 function AppTable() {
@@ -36,31 +58,18 @@ function AppTable() {
           </TableHead>
           <TableBody>
             {rows.map((row) => (
-              <TableRow key={row.time} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+              <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                 <TableCell component="th" scope="row">
-                  {row.time}
+                  {row.startDate}〜{row.endDate}
                 </TableCell>
-                <TableCell style={{ fontSize: '30px', color: '#1976d2' }} align="center">
-                  {row.wed1}
-                </TableCell>
-                <TableCell style={{ fontSize: '30px', color: '#1976d2' }} align="center">
-                  {row.wed2}
-                </TableCell>
-                <TableCell style={{ fontSize: '30px', color: '#1976d2' }} align="center">
-                  {row.wed3}
-                </TableCell>
-                <TableCell style={{ fontSize: '30px', color: '#1976d2' }} align="center">
-                  {row.wed4}
-                </TableCell>
-                <TableCell style={{ fontSize: '30px', color: '#1976d2' }} align="center">
-                  {row.wed5}
-                </TableCell>
-                <TableCell style={{ fontSize: '30px', color: '#1976d2' }} align="center">
-                  {row.wed6}
-                </TableCell>
-                <TableCell style={{ fontSize: '30px', color: '#1976d2' }} align="center">
-                  {row.wed7}
-                </TableCell>
+                {Object.entries(row.actives).map((active) => (
+                  <TableCell
+                    key={active[0]}
+                    style={{ fontSize: '30px', color: '#1976d2' }}
+                    align="center">
+                    {active[1] ? '●' : '-'}
+                  </TableCell>
+                ))}
               </TableRow>
             ))}
           </TableBody>
